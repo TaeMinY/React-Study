@@ -37,10 +37,28 @@ const Mean = styled(Text)`
 `;
 
 function TodayWord() {
+  const [word, setWord] = useState([]);
+
+  useEffect(() => {
+    setWord(JSON.parse(localStorage.getItem("word") || "[]"));
+  }, []);
   return (
     <>
       <Header>오늘의 단어</Header>
-      <TodayWordContainer></TodayWordContainer>
+      <TodayWordContainer>
+        <Swiper spaceBetween={50} style={{ height: "100%" }}>
+          {word.map((v) => {
+            return (
+              <SwiperSlide>
+                <WordInnerContainer>
+                  <Word>{v.word}</Word>
+                  <Mean>{v.mean}</Mean>
+                </WordInnerContainer>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </TodayWordContainer>
     </>
   );
 }

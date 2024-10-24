@@ -1,5 +1,6 @@
 import Header from "../components/common/Header";
 import styled from "styled-components";
+import axios from "axios";
 
 const MoreContainer = styled.div`
   min-height: calc(100% - 72px - 61px);
@@ -21,8 +22,13 @@ const Line = styled.div`
   background-color: #efefef;
 `;
 
-const getWord = async () => {};
-const initData = () => {};
+const getWord = async () => {
+  const response = await axios.get("https://englishword.fly.dev");
+  localStorage.setItem("word", JSON.stringify(response.data.data));
+};
+const initData = () => {
+  localStorage.removeItem("word");
+};
 
 function More() {
   return (
